@@ -18,12 +18,7 @@ cargo install xargo
 echo "▸ Install targets"
 rustup target add x86_64-apple-ios
 rustup target add aarch64-apple-ios
-rustup target add aarch64-apple-darwin
-rustup target add x86_64-apple-darwin
 rustup target add aarch64-apple-ios-sim
-rustup target add aarch64-apple-ios-macabi
-rustup target add x86_64-apple-ios-macabi
-rustup target add aarch64-apple-tvos
 
 echo "▸ Build x86_64-apple-ios"
 cargo build --target x86_64-apple-ios --package automerge-c --release
@@ -34,43 +29,12 @@ xargo build -Zbuild-std --target aarch64-apple-ios-sim --package automerge-c --r
 echo "▸ Build aarch64-apple-ios"
 cargo build --target aarch64-apple-ios --package automerge-c --release
 
-echo "▸ Build aarch64-apple-darwin"
-cargo build --target aarch64-apple-darwin --package automerge-c --release
-
-echo "▸ Build x86_64-apple-darwin"
-cargo build --target x86_64-apple-darwin --package automerge-c --release
-
-echo "▸ x86_64-apple-ios-macabi"
-xargo build -Zbuild-std --target x86_64-apple-ios-macabi --package automerge-c --release
-
-echo "▸ aarch64-apple-ios-macabi"
-#xargo build --target aarch64-apple-ios-macabi --package automerge-c --release
-xargo build -Zbuild-std --target aarch64-apple-ios-macabi --package automerge-c --release
-
-# echo "▸ aarch64-apple-tvos"
-# xargo build -Zbuild-std --target aarch64-apple-tvos --package automerge-c --release
-# multiple errors when building the std. library for tvOS w/ nightly
-
-echo "▸ Lipo macOS"
-mkdir -p ./target/apple-darwin/release
-lipo -create  \
-    ./target/x86_64-apple-darwin/release/libautomerge.a \
-    ./target/aarch64-apple-darwin/release/libautomerge.a \
-    -output ./target/apple-darwin/release/libautomerge.a
-
 echo "▸ Lipo simulator"
 mkdir -p ./target/apple-ios-simulator/release
 lipo -create  \
     ./target/x86_64-apple-ios/release/libautomerge.a \
     ./target/aarch64-apple-ios-sim/release/libautomerge.a \
     -output ./target/apple-ios-simulator/release/libautomerge.a
-
-echo "▸ Lipo ios-macabi"
-mkdir -p ./target/apple-ios-macabi/release
-lipo -create  \
-    ./target/aarch64-apple-ios-macabi/release/libautomerge.a \
-    ./target/x86_64-apple-ios-macabi/release/libautomerge.a \
-    -output ./target/apple-ios-macabi/release/libautomerge.a
 
 echo "#####################"
 rm -rf ./xcframework/AutomergeBackend.xcframework
@@ -85,10 +49,6 @@ echo "▸ Create AutomergeRSBackend.xcframework"
             -headers ./automerge-swift-backend/Headers \
             -library ./target/aarch64-apple-ios/release/libautomerge.a \
             -headers ./automerge-swift-backend/Headers \
-            -library ./target/apple-ios-macabi/release/libautomerge.a \
-            -headers ./automerge-swift-backend/Headers \
-            -library ./target/apple-darwin/release/libautomerge.a \
-            -headers ./automerge-swift-backend/Headers \
             -output ./xcframework/AutomergeBackend.xcframework
 
 echo "▸ Compress AutomergeRSBackend.xcframework"
@@ -97,3 +57,6 @@ ditto -c -k --sequesterRsrc --keepParent ./xcframework/AutomergeBackend.xcframew
 echo "▸ Compute AutomergeRSBackend.xcframework checksum"
 cd automerge-swift-backend
 swift package compute-checksum ./AutomergeBackend.xcframework.zip
+
+echo "▸ Copy AutomergeRSBackend.xcframework"
+cp -r ../xcframework/AutomergeBackend.xcframework ./

@@ -31,7 +31,6 @@ let package = Package(
     name: "AutomergeBackend",
     platforms: [
         .iOS(.v12),
-        .macOS(.v10_10),
     ],
     products: [
         .library(name: "AutomergeBackend", targets: ["AutomergeBackend"])

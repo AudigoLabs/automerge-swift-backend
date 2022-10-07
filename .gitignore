@@ -2,3 +2,6 @@
 target
 .build
 Headers
+.swiftpm
+AutomergeBackend.xcframework
+AutomergeBackend.xcframework.zip
