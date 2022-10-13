@@ -41,7 +41,7 @@ rm -rf ./xcframework/AutomergeBackend.xcframework
 
 mkdir -p automerge-swift-backend/Headers
 cp automerge-c/automerge.h automerge-swift-backend/Headers
-cp automerge-swift-backend/module.modulemap automerge-swift-backend/Headers
+printf "%s\n" "module AutomergeBackend {" "    header \"automerge.h\"" "    export *" "}" > automerge-swift-backend/Headers/module.modulemap
 
 echo "▸ Create AutomergeRSBackend.xcframework"
   xcodebuild -create-xcframework \
