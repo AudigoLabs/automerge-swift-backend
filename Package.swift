@@ -30,7 +30,7 @@ import PackageDescription
 let package = Package(
     name: "AutomergeBackend",
     platforms: [
-        .iOS(.v12),
+        .iOS(.v13),
     ],
     products: [
         .library(name: "AutomergeBackend", targets: ["AutomergeBackend"])
@@ -40,8 +40,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "AutomergeBackend",
-            url: "https://github.com/AudigoLabs/automerge-swift-backend/releases/download/0.1.11/AutomergeBackend.xcframework.zip",
-            checksum: "75d2ab1ba125412899629ad343d144b38d714cc2818bb2fba123bf58adc898be"
+            url: "https://github.com/AudigoLabs/automerge-swift-backend/releases/download/0.1.14/AutomergeBackend.xcframework.zip",
+            checksum: "29a89c4aaaf6ef761626ce5451e6da58e46593e248ca6eb8a52b603845a1db9e"
         )
     ]
 )
