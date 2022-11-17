@@ -40,8 +40,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "AutomergeBackend",
-            url: "https://github.com/AudigoLabs/automerge-swift-backend/releases/download/0.1.15/AutomergeBackend.xcframework.zip",
-            checksum: "8905bd8dd2f4f0413bb911ad08609b777c497380256bc53d3b8ce2e983c50f39"
+            url: "https://github.com/AudigoLabs/automerge-swift-backend/releases/download/0.1.16/AutomergeBackend.xcframework.zip",
+            checksum: "d930ce309e3fdf63e35c1853d0c06d0665bc27bd56b580b849fc4d91909ce70a"
         )
     ]
 )
